@@ -1,0 +1,16 @@
+.vscode
+.vs
+bin
+obj
+
+.idea
+.gradle
+*.iml
+**/target
+**/build
+*.settings
+*.project
+/bin
+.classpath
+settings.json
+
