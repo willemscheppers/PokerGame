@@ -68,4 +68,18 @@ class BestCombinationCalculatorServiceTest {
 
         assertThat(service.getCombination(cards)).isEqualTo(STRAIGHT);
     }
+
+    @Test
+    void getBestCombination_straightAtEnd() {
+        Collection<Card> cards = new ArrayList<>();
+        cards.add(Card.createCard("AD"));
+        cards.add(Card.createCard("JH"));
+        cards.add(Card.createCard("2D"));
+        cards.add(Card.createCard("3C"));
+        cards.add(Card.createCard("4H"));
+        cards.add(Card.createCard("5H"));
+        cards.add(Card.createCard("6D"));
+
+        assertThat(service.getCombination(cards)).isEqualTo(STRAIGHT);
+    }
 }
