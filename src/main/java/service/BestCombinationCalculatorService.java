@@ -15,7 +15,6 @@ import static domain.Combination.PAIR;
 public class BestCombinationCalculatorService {
 
     public List<Rank> calculateBestCards(Collection<Card> cards) {
-
         return cards.stream()
                 .map(Card::getRank)
                 .sorted()
@@ -24,17 +23,14 @@ public class BestCombinationCalculatorService {
     }
 
     public Combination getCombination(Collection<Card> cards) {
-
         if (hasPair(cards)) {
             return PAIR;
         }
-
         return HIGH_CARD;
     }
 
     private boolean hasPair(Collection<Card> cards) {
         Map<Rank, Long> counts = cards.stream().collect(Collectors.groupingBy(Card::getRank, Collectors.counting()));
-
         return counts.values().stream().anyMatch(count -> count == 2);
     }
 }
