@@ -23,6 +23,9 @@ public class BestCombinationCalculatorService {
     }
 
     public Combination getCombination(Collection<Card> cards) {
+        if (hasFullHouse(cards)) {
+            return FULL_HOUSE;
+        }
         if (hasFlush(cards)) {
             return FLUSH;
         }
@@ -36,6 +39,11 @@ public class BestCombinationCalculatorService {
             return PAIR;
         }
         return HIGH_CARD;
+    }
+
+    private boolean hasFullHouse(Collection<Card> cards) {
+        Collection<Long> values = cards.stream().collect(Collectors.groupingBy(Card::getRank, Collectors.counting())).values();
+        return values.contains(2L) && values.contains(3L);
     }
 
     private boolean hasFlush(Collection<Card> cards) {

@@ -96,4 +96,18 @@ class BestCombinationCalculatorServiceTest {
 
         assertThat(service.getCombination(cards)).isEqualTo(FLUSH);
     }
+
+    @Test
+    void getBestCombinations_fullHouse() {
+        Collection<Card> cards = new ArrayList<>();
+        cards.add(Card.createCard("AD"));
+        cards.add(Card.createCard("AH"));
+        cards.add(Card.createCard("AS"));
+        cards.add(Card.createCard("10D"));
+        cards.add(Card.createCard("10H"));
+        cards.add(Card.createCard("5S"));
+        cards.add(Card.createCard("6D"));
+
+        assertThat(service.getCombination(cards)).isEqualTo(FULL_HOUSE);
+    }
 }
