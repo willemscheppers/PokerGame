@@ -82,4 +82,18 @@ class BestCombinationCalculatorServiceTest {
 
         assertThat(service.getCombination(cards)).isEqualTo(STRAIGHT);
     }
+
+    @Test
+    void getBestCombinations_flush() {
+        Collection<Card> cards = new ArrayList<>();
+        cards.add(Card.createCard("AD"));
+        cards.add(Card.createCard("JD"));
+        cards.add(Card.createCard("2D"));
+        cards.add(Card.createCard("3D"));
+        cards.add(Card.createCard("4H"));
+        cards.add(Card.createCard("5H"));
+        cards.add(Card.createCard("6D"));
+
+        assertThat(service.getCombination(cards)).isEqualTo(FLUSH);
+    }
 }

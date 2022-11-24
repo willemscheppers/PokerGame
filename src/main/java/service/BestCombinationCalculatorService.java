@@ -23,6 +23,9 @@ public class BestCombinationCalculatorService {
     }
 
     public Combination getCombination(Collection<Card> cards) {
+        if (hasFlush(cards)) {
+            return FLUSH;
+        }
         if(hasStraight(cards)) {
             return STRAIGHT;
         }
@@ -33,6 +36,10 @@ public class BestCombinationCalculatorService {
             return PAIR;
         }
         return HIGH_CARD;
+    }
+
+    private boolean hasFlush(Collection<Card> cards) {
+        return cards.stream().collect(Collectors.groupingBy(Card::getSuit, Collectors.counting())).values().stream().anyMatch(c -> c == 5);
     }
 
     private boolean hasStraight(Collection<Card> cards) {
