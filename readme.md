@@ -14,6 +14,7 @@ Rules of developing:
 4. Don't forget to refactor
 5. TDD
 6. Let the junior take the keyboard
+7. Shortcuts
 
 
 Complete the following user stories
