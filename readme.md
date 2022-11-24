@@ -1,7 +1,20 @@
 # Junior - Senior pair up
 ### Pokergame
+Open -> build.gradle
+Java version 17 -> ctrl + shift + alt + s (language version 17 or x)
+How to run -> run PokerGame.java
+how to run tests -> right click test folder -> Run test in XXX
 
 ##### 
+
+Rules of developing:
+1. Implement what is asked (we are simply identifying combinations)
+2. TDD
+3. Don't overthink
+4. Don't forget to refactor
+5. TDD
+6. Let the junior take the keyboard
+
 
 Complete the following user stories
 
