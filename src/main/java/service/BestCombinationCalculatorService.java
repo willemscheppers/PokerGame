@@ -23,6 +23,9 @@ public class BestCombinationCalculatorService {
     }
 
     public Combination getCombination(Collection<Card> cards) {
+        if (hasFourOfAKind(cards)) {
+            return FOUR_OF_A_KIND;
+        }
         if (hasFullHouse(cards)) {
             return FULL_HOUSE;
         }
@@ -39,6 +42,10 @@ public class BestCombinationCalculatorService {
             return PAIR;
         }
         return HIGH_CARD;
+    }
+
+    private boolean hasFourOfAKind(Collection<Card> cards) {
+        return cards.stream().collect(Collectors.groupingBy(Card::getRank, Collectors.counting())).values().stream().anyMatch(c -> c == 4);
     }
 
     private boolean hasFullHouse(Collection<Card> cards) {
