@@ -42,6 +42,20 @@ class BestCombinationCalculatorServiceTest {
     }
 
     @Test
+    void getBestCombination_threeOfAKind() {
+        Collection<Card> cards = new ArrayList<>();
+        cards.add(Card.createCard("AH"));
+        cards.add(Card.createCard("AD"));
+        cards.add(Card.createCard("AC"));
+        cards.add(Card.createCard("KC"));
+        cards.add(Card.createCard("10D"));
+        cards.add(Card.createCard("6D"));
+        cards.add(Card.createCard("JH"));
+
+        assertThat(service.getCombination(cards)).isEqualTo(THREE_OF_A_KIND);
+    }
+
+    @Test
     void getBestCombination_straight() {
         Collection<Card> cards = new ArrayList<>();
         cards.add(Card.createCard("2D"));
