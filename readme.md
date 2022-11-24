@@ -18,25 +18,24 @@ Rules of developing:
 
 Complete the following user stories
 
-1. As a player I want to be able to start a game of poker.
-2. As a player I can put my hand in the program
-3. As a player I can put the flop, river and turn in the program.
-4. As a player I can see an indicator if my best possible combination is high card.
-5. As a player I can see an indicator if my best possible combination is a pair.
-6. As a player I can see an indicator if my best possible combination is 2 pair.
-7. As a player I can see an indicator if my best possible combination is three of a kind.
-8. As a player I can see an indicator if my best possible combination is a straight.
-9. As a player I can see an indicator if my best possible combination is a flush.
-10. As a player I can see an indicator if my best possible combination is a full house.
-11. As a player I can see an indicator if my best possible combination is a four of a kind.
-12. As a player I can see an indicator if my best possible combination is a straight flush.
-13. As a player I can see an indicator if my best possible combination is a royal flush.
-14. As a player I can see an indicator of my best possible combination ranking all the above from worst to best possible combination.
-15. As a player I want to be asked how many players will join the game in the beginning of the game.
-16. As a player in a multiplayer game I want to be asked for my hand, after which the next player can input their hand.
-17. As a player in a multiplayer game I don't want my input visible in the terminal for the next player to see when inputting their hand.
-18. As a player in a multiplayer game I want only one player to put in the flop,river & turn.
-19. As a player in a multiplayer game I want to know which player won with what combination.
+1. As a player I can see an indicator if my best possible combination is high card.
+2. As a player I can see an indicator if my best possible combination is a pair.
+3. As a player I can see an indicator if my best possible combination is 2 pair.
+4. As a player I can see an indicator if my best possible combination is three of a kind.
+5. As a player I can see an indicator if my best possible combination is a straight.
+6. As a player I can see an indicator if my best possible combination is a flush.
+7. As a player I can see an indicator if my best possible combination is a full house.
+8. As a player I can see an indicator if my best possible combination is a four of a kind.
+9. As a player I can see an indicator if my best possible combination is a straight flush.
+10. As a player I can see an indicator if my best possible combination is a royal flush.
+11. As a player I can see an indicator of my best possible combination ranking all the above from worst to best possible combination.
+    * bonus : As a player I can see the best five cards I have (all the cards of the best combination i can form + highest cards outside of the combination)
+    
+12. As a player I want to be asked how many players will join the game in the beginning of the game.
+13. As a player in a multiplayer game I want to be asked for my hand, after which the next player can input their hand.
+14. As a player in a multiplayer game I don't want my input visible in the terminal for the next player to see when inputting their hand.
+15. As a player in a multiplayer game I want only one player to put in the flop,river & turn.
+16. As a player in a multiplayer game I want to know which player won with what combination.
 
 *If two player have the 'same' best combination we have to look deeper than the criteria above. You would be wise googling this.*
 

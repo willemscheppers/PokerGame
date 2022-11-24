@@ -27,8 +27,7 @@ public class Game {
         Card turn = getCard("Turn card ", reader);
         Card river = getCard("River card ", reader);
 
-        //Find best hand for player
-
+        //Find best combination for player
         ArrayList<Card> cards = new ArrayList<>();
         cards.add(card1);
         cards.add(card2);
