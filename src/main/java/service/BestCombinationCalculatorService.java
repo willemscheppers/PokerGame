@@ -4,11 +4,9 @@ import domain.Card;
 import domain.Combination;
 import domain.Rank;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static domain.Combination.*;
 
@@ -22,65 +20,97 @@ public class BestCombinationCalculatorService {
                 .toList();
     }
 
+    interface CombinationCheck {
+        Optional<Combination> check(Collection<Card> cards);
+    }
+
     public Combination getCombination(Collection<Card> cards) {
-        if (hasFourOfAKind(cards)) {
-            return FOUR_OF_A_KIND;
-        }
-        if (hasFullHouse(cards)) {
-            return FULL_HOUSE;
-        }
-        if (hasFlush(cards)) {
-            return FLUSH;
-        }
-        if(hasStraight(cards)) {
-            return STRAIGHT;
-        }
-        if(hasThreeOfAKind(cards)) {
-            return THREE_OF_A_KIND;
-        }
-        if (hasPair(cards)) {
-            return PAIR;
-        }
-        return HIGH_CARD;
+        return Stream.of(
+                new FourOfAKind(),
+                new FullHouse(),
+                new Flush(),
+                new Straight(),
+                new ThreeOfAKind(),
+                new Pair()
+        ).flatMap(
+                (CombinationCheck combo) -> combo.check(cards).stream()
+        ).findFirst().orElse(
+                HIGH_CARD
+        );
     }
 
-    private boolean hasFourOfAKind(Collection<Card> cards) {
-        return hasNumberOfRank(cards, 4);
+    class FourOfAKind implements CombinationCheck {
+        @Override
+        public Optional<Combination> check(Collection<Card> cards) {
+            if (hasNumberOfRank(cards, 4)) {
+                return Optional.of(FOUR_OF_A_KIND);
+            }
+            return Optional.empty();
+        }
     }
 
-    private boolean hasFullHouse(Collection<Card> cards) {
-        Collection<Long> values = cards.stream().collect(Collectors.groupingBy(Card::getRank, Collectors.counting())).values();
-        return values.contains(2L) && values.contains(3L);
+    static class FullHouse implements CombinationCheck {
+        @Override
+        public Optional<Combination> check(Collection<Card> cards) {
+            Collection<Long> values = cards.stream().collect(Collectors.groupingBy(Card::getRank, Collectors.counting())).values();
+            if (values.contains(2L) && values.contains(3L)) {
+                return Optional.of(FULL_HOUSE);
+            }
+            return Optional.empty();
+        }
+
     }
 
-    private boolean hasFlush(Collection<Card> cards) {
-        return cards.stream().collect(Collectors.groupingBy(Card::getSuit, Collectors.counting())).values().stream().anyMatch(c -> c == 5);
+    static class Flush implements CombinationCheck {
+        @Override
+        public Optional<Combination> check(Collection<Card> cards) {
+            if (cards.stream().collect(Collectors.groupingBy(Card::getSuit, Collectors.counting())).values().stream().anyMatch(c -> c == 5)) {
+                return Optional.of(FLUSH);
+            }
+            return Optional.empty();
+        }
     }
 
-    private boolean hasStraight(Collection<Card> cards) {
-        List<Card> sortedCards = cards.stream().sorted(Comparator.comparing(Card::getRank)).toList();
-        int incrementalCards = 1;
-        for (int i = 1; i < sortedCards.size(); i++) {
-            Card previousCard = sortedCards.get(i-1);
-            Card currentCard = sortedCards.get(i);
-            if(currentCard.getRank().ordinal() - previousCard.getRank().ordinal() != 1) {
-                incrementalCards = 1;
-            } else {
-                incrementalCards++;
-                if(incrementalCards == 5) {
-                    return true;
+    static class Straight implements CombinationCheck {
+        @Override
+        public Optional<Combination> check(Collection<Card> cards) {
+            List<Card> sortedCards = cards.stream().sorted(Comparator.comparing(Card::getRank)).toList();
+            int incrementalCards = 1;
+            for (int i = 1; i < sortedCards.size(); i++) {
+                Card previousCard = sortedCards.get(i - 1);
+                Card currentCard = sortedCards.get(i);
+                if (currentCard.getRank().ordinal() - previousCard.getRank().ordinal() != 1) {
+                    incrementalCards = 1;
+                } else {
+                    incrementalCards++;
+                    if (incrementalCards == 5) {
+                        return Optional.of(STRAIGHT);
+                    }
                 }
             }
+            return Optional.empty();
         }
-        return false;
     }
 
-    private boolean hasThreeOfAKind(Collection<Card> cards) {
-        return hasNumberOfRank(cards, 3);
+
+    class ThreeOfAKind implements CombinationCheck {
+        @Override
+        public Optional<Combination> check(Collection<Card> cards) {
+            if (hasNumberOfRank(cards, 3)) {
+                return Optional.of(THREE_OF_A_KIND);
+            }
+            return Optional.empty();
+        }
     }
 
-    private boolean hasPair(Collection<Card> cards) {
-        return hasNumberOfRank(cards, 2);
+    class Pair implements CombinationCheck {
+        @Override
+        public Optional<Combination> check(Collection<Card> cards) {
+            if (hasNumberOfRank(cards, 2)) {
+                return Optional.of(PAIR);
+            }
+            return Optional.empty();
+        }
     }
 
     private boolean hasNumberOfRank(Collection<Card> cards, int number) {
