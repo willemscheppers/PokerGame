@@ -1,16 +1,13 @@
 package service;
 
 import domain.Card;
-import domain.Combination;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static domain.Combination.HIGH_CARD;
-import static domain.Combination.PAIR;
-import static domain.Combination.STRAIGHT;
-import static org.junit.jupiter.api.Assertions.*;
+import static domain.Combination.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class BestCombinationCalculatorServiceTest {
 
@@ -27,7 +24,7 @@ class BestCombinationCalculatorServiceTest {
         cards.add(Card.createCard("AD"));
         cards.add(Card.createCard("JH"));
 
-        assertEquals(HIGH_CARD, service.getCombination(cards));
+        assertThat(service.getCombination(cards)).isEqualTo(HIGH_CARD);
     }
 
     @Test
@@ -41,7 +38,7 @@ class BestCombinationCalculatorServiceTest {
         cards.add(Card.createCard("AD"));
         cards.add(Card.createCard("JH"));
 
-        assertEquals(PAIR, service.getCombination(cards));
+        assertThat(service.getCombination(cards)).isEqualTo(PAIR);
     }
 
     @Test
@@ -55,6 +52,6 @@ class BestCombinationCalculatorServiceTest {
         cards.add(Card.createCard("AD"));
         cards.add(Card.createCard("JH"));
 
-        assertEquals(STRAIGHT, service.getCombination(cards));
+        assertThat(service.getCombination(cards)).isEqualTo(STRAIGHT);
     }
 }
