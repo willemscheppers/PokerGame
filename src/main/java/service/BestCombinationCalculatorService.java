@@ -45,7 +45,7 @@ public class BestCombinationCalculatorService {
     }
 
     private boolean hasFourOfAKind(Collection<Card> cards) {
-        return cards.stream().collect(Collectors.groupingBy(Card::getRank, Collectors.counting())).values().stream().anyMatch(c -> c == 4);
+        return hasNumberOfRank(cards, 4);
     }
 
     private boolean hasFullHouse(Collection<Card> cards) {
@@ -76,11 +76,14 @@ public class BestCombinationCalculatorService {
     }
 
     private boolean hasThreeOfAKind(Collection<Card> cards) {
-        return cards.stream().collect(Collectors.groupingBy(Card::getRank, Collectors.counting())).values().stream().anyMatch(c -> c == 3);
+        return hasNumberOfRank(cards, 3);
     }
 
     private boolean hasPair(Collection<Card> cards) {
-        Map<Rank, Long> counts = cards.stream().collect(Collectors.groupingBy(Card::getRank, Collectors.counting()));
-        return counts.values().stream().anyMatch(count -> count == 2);
+        return hasNumberOfRank(cards, 2);
+    }
+
+    private boolean hasNumberOfRank(Collection<Card> cards, int number) {
+        return cards.stream().collect(Collectors.groupingBy(Card::getRank, Collectors.counting())).values().stream().anyMatch(c -> c == number);
     }
 }
